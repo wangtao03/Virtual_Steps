@@ -1,25 +1,24 @@
 package com.nt03.virtualsteps
 
-import android.content.Context
-import android.widget.Toast
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.time.LocalTime
 
 
-class TodayFragmentHook(context: Context) {
+class TodayFragmentHook(classLoader: ClassLoader) {
     //构造函数
     init {
-        hook(context)
+        hook(classLoader)
     }
 
     companion object {
         private const val className = "com.ruidonghy.home.train.main.today.TodayFragment"//HOOK的类名
 
-        fun hook(context: Context) {
+        fun hook(classLoader: ClassLoader) {
             try {
                 //获取要HOOK的类对象
-                val clazz = XposedHelpers.findClass(className, context.classLoader)
+                val clazz = XposedHelpers.findClass(className, classLoader)
 
                 //屏蔽运动权限提示弹窗
                 XposedHelpers.findAndHookMethod(clazz, "requestStepCounter",
@@ -63,7 +62,7 @@ class TodayFragmentHook(context: Context) {
                         }
                     })
             } catch (e: Error) {
-                Toast.makeText(context, e.stackTraceToString(), Toast.LENGTH_LONG).show()
+                XposedBridge.log(e.stackTraceToString())
             }
         }
     }

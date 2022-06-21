@@ -11,7 +11,7 @@ android {
         minSdk 26
         targetSdk 32
         versionCode 1
-        versionName "1.0.5"
+        versionName '1.0.6'
     }
 
     buildTypes {
@@ -30,6 +30,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     compileOnly 'de.robv.android.xposed:api:82'
 }
